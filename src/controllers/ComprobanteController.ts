@@ -1,18 +1,19 @@
-import { cxp } from "../models/CxP";
+import Comprobante from "../models/Comprobante";
 
-export const save = (cxpjson : any) => {
+
+export const saveComprobante = (objjson : any) => {
     
 
-    if(!cxpjson) {
+    if(!objjson) {
         return {
             status : "error",
-            statuscode : "CXP01",
-            data : "cxpjson is blank"
+            statuscode : "COM01",
+            data : "objjson is blank"
         };
     }
     
 
-    let stringObj = JSON.stringify(cxpjson, (key, value) =>{
+    let stringObj = JSON.stringify(objjson, (key, value) =>{
         if(value != null && value == '') {
             return null;
         }
@@ -22,7 +23,7 @@ export const save = (cxpjson : any) => {
     let tmpobj = JSON.parse(stringObj);
     tmpobj.isVisible = 1;
 
-    const obj = cxp.build(tmpobj);
+    const obj = Comprobante.build(tmpobj);
     
 
     obj.save()
@@ -35,10 +36,10 @@ export const save = (cxpjson : any) => {
         }
     })
     .catch((e) => {
-        //console.log("error trying save object in database", e);
+        console.log("error trying save object in database", e);
         return {
             status : "error",
-            statuscode : "CXP02",
+            statuscode : "COM02",
             data: e
         }
     })

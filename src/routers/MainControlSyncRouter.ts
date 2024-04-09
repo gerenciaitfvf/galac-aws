@@ -19,7 +19,7 @@ mscrouter.get("/mcs/:tablename", (req: Request, res: Response) => {
 
 });
   
-mscrouter.post("/mcs/:tablename", (req: Request, res: Response) => {
+mscrouter.patch("/mcs/:tablename", (req: Request, res: Response) => {
 
     save(req.params.tablename)
     .then((result)=>{
