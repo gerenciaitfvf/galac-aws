@@ -1,13 +1,22 @@
-import express, { Router, Express, Request, Response } from "express";
-import { saveProveedor } from "../controllers/ProveedorController";
+import express, { Router, Request, Response } from "express";
+import { getProveedorByCodigo, saveProveedor } from "../controllers/ProveedorController";
 
 export const proveedorrouter : Router = express.Router();
 
-proveedorrouter.get("/proveedor", (req: Request, res: Response) => {
+proveedorrouter.get("/proveedor/:codigo", (req: Request, res: Response) => {
 
-    console.log(req.query); // get parameters value
+    console.log(req.params); // get parameters value
    
-    res.send("Form ");
+    getProveedorByCodigo(req.params.codigo)
+    .then((result)=>{
+        
+        if(result.status != "success") {
+            res.send(result);
+            return;
+        }
+
+        res.send(result.data);
+    });
 });
   
 proveedorrouter.post("/proveedor", (req: Request, res: Response) => {

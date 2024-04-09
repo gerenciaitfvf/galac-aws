@@ -44,3 +44,26 @@ export const saveProveedor = (objjson : any) => {
     })
     
 }
+
+export const getProveedorByCodigo = (codigo: any) =>{
+
+    return Proveedor.findOne({
+        where : {
+            CodigoProveedor : codigo
+        },
+        raw: true
+    }).then((result)=>{
+        return {
+            status : "success",
+            statuscode : "200",
+            data: result
+        }
+    }).catch((e)=>{
+        console.log(e);
+        return Promise.resolve({
+            status : "error",
+            statuscode : "PRO03",
+            data: e
+        });
+    })
+}

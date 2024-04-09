@@ -1,14 +1,24 @@
 import express, { Router, Request, Response } from "express";
-import { saveComprobante } from "../controllers/ComprobanteController";
+import { getComprobanteById, saveComprobante } from "../controllers/ComprobanteController";
 
 
 export const comprobanterouter : Router = express.Router();
 
-comprobanterouter.get("/comprobante", (req: Request, res: Response) => {
+comprobanterouter.get("/comprobante/:periodo/:numero", (req: Request, res: Response) => {
 
-    console.log(req.query); // get parameters value
-   
-    res.send("Form ");
+    getComprobanteById({
+        periodo : req.params.periodo,
+        numero : req.params.numero,
+    })
+    .then((result)=>{
+        
+        if(result.status != "success") {
+            res.send(result);
+            return;
+        }
+
+        res.send(result.data);
+    });
 });
   
 comprobanterouter.post("/comprobante", (req: Request, res: Response) => {

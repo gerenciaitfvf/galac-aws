@@ -45,3 +45,26 @@ export const saveComprobante = (objjson : any) => {
     })
     
 }
+
+export const getComprobanteById = (id: any) =>{
+
+    return Comprobante.findOne({
+        where : {
+            ConsecutivoPeriodo : id.periodo,
+            Numero : id.numero
+        },
+        raw: true
+    }).then((result)=>{
+        return {
+            status : "success",
+            statuscode : "200",
+            data: result
+        }
+    }).catch((e)=>{
+        return Promise.resolve({
+            status : "error",
+            statuscode : "COM03",
+            data: e
+        });
+    })
+}
