@@ -159,19 +159,19 @@ export const cxp = CxP.init({
 		// allowNull: true
 	  },
 	MontoExento: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoGravado: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoIva: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoAbonado: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MesDeAplicacion: {
@@ -199,31 +199,31 @@ export const cxp = CxP.init({
 		// allowNull: true
 	  },
 	MontoGravableAlicuotaGeneral: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoGravableAlicuota2: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoGravableAlicuota3: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoIvaalicuotaGeneral: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoIvaalicuota2: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoIvaalicuota3: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	NumeroPlanillaDeImportacion: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	NumeroExpedienteDeImportacion: {
@@ -247,7 +247,7 @@ export const cxp = CxP.init({
 		// allowNull: true
 	  },
 	NumeroComprobanteRetencion: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	FechaAplicacionRetIva: {
@@ -255,11 +255,11 @@ export const cxp = CxP.init({
 		// allowNull: true
 	  },
 	PorcentajeRetencionAplicado: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoRetenido: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	OrigenDeLaRetencion: {
@@ -299,7 +299,7 @@ export const cxp = CxP.init({
 		// allowNull: true
 	  },
 	TotalOtrosImpuestos: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	SeContabilRetIva: {
@@ -335,7 +335,7 @@ export const cxp = CxP.init({
 		// allowNull: true
 	  },
 	MontoRetenidoISLR: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	SeContabilISLR: {
@@ -351,7 +351,7 @@ export const cxp = CxP.init({
 		// allowNull: true
 	  },
 	MontoRetenidoImpuestoMunicipal: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	ImpuestoMunicipalRetenido: {
@@ -404,23 +404,23 @@ export const cxp = CxP.init({
 		// allowNull: true
 	  },
 	MontoGravableAlicuotaEspecial1: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoIVAAlicuotaEspecial1: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	PorcentajeIvaAlicuotaEspecial1: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoGravableAlicuotaEspecial2: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	MontoIVAAlicuotaEspecial2: {
-		type: DataTypes.DECIMAL,
+		type: DataTypes.DECIMAL(20,4),
 		// allowNull: true
 	  },
 	DiaDeAplicacion: {

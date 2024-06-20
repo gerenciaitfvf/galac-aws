@@ -45,10 +45,10 @@ Comprobante.init({
         type: DataTypes.STRING,
       },
       TotalDebe: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(20,4),
       },
       TotalHaber: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(20,4),
       },
       TipoAsientoModificable: {
         type: DataTypes.STRING,

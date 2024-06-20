@@ -1,8 +1,7 @@
-import { DATE } from "sequelize";
 import { mcs } from "../models/MainControlSync";
 import _ from "lodash";
 
-export const save = (tablename: string) => {
+export const save = (tablename: string, lastid: number | undefined) => {
   if (!tablename) {
     return Promise.resolve({
       status: "error",
@@ -14,7 +13,14 @@ export const save = (tablename: string) => {
   let tmpobj = {
     table_name: tablename,
     date_updated: new Date(),
+    jinfo : { 
+      lastid : 0 // for documentopagado
+    }
   };
+
+  if(lastid) {
+    tmpobj.jinfo.lastid = lastid;
+  }
 
   let obj: any = null;
   return mcs
@@ -29,6 +35,7 @@ export const save = (tablename: string) => {
       } else {
         obj = mcsobj;
         obj.date_updated = tmpobj.date_updated;
+        obj.jinfo = tmpobj.jinfo;
       }
 
       return obj.save();
@@ -71,14 +78,23 @@ export const getTableLastUpdate = (tablename: any) => {
         return {
           status: "success",
           statuscode: "200",
-          data: "2022-01-01",
+          data: {
+            lastdate : "2022-01-01",
+            jinfo : {
+              lastid : 0
+            }
+
+          },
         };
       }
 
       return {
         status: "success",
         statuscode: "200",
-        data: mcsync.date_updated,
+        data: {
+          lastdate : mcsync.date_updated,
+          jinfo : mcsync.jinfo
+        },
       };
     })
     .catch((e) => {

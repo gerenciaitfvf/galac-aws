@@ -6,6 +6,7 @@ class MainControlSync extends Model {
 	id : number | undefined;
 	table_name : string | undefined ;
 	date_updated : any;
+  jinfo : any;
 }
 
 export const mcs = MainControlSync.init({
@@ -23,7 +24,11 @@ export const mcs = MainControlSync.init({
 	date_updated: {
 		type: DataTypes.DATE,
 		allowNull: false
-	}
+	},
+  jinfo: {
+    type: DataTypes.JSON,
+		allowNull: false
+  }
   }, {
     // Other model options go here
     sequelize, // We need to pass the connection instance

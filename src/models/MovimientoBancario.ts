@@ -52,7 +52,7 @@ MovimientoBancario.init({
         type: DataTypes.STRING,
     },
     Monto: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(20,4),
     },
     NumeroDocumento: {
         type: DataTypes.STRING,
@@ -70,7 +70,7 @@ MovimientoBancario.init({
         type: DataTypes.STRING,
     },
     CambioAbolivares: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(20,4),
     },
     ImprimirCheque: {
         type: DataTypes.STRING,
@@ -91,7 +91,7 @@ MovimientoBancario.init({
         type: DataTypes.DATEONLY,
     },
     AlicuotaImpBancario: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(20,4),
     },
     isVisible: {
         type: DataTypes.INTEGER,

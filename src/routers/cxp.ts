@@ -19,6 +19,22 @@ cxprouter.get("/cxp", (req: Request, res: Response) => {
     
 });
 
+cxprouter.get("/cxp/:rif/:numero", (req: Request, res: Response) => {
+
+    //console.log(req.query); // get parameters value
+   
+    getCxP({})
+    .then((result)=>{
+        if(result.status != "success") {
+            res.send(result);
+            return;
+        }
+
+        res.send(result.data);
+    });
+    
+});
+
 cxprouter.get("/cxp/:offset", (req: Request, res: Response) => {
 
     //console.log(req.query); // get parameters value
@@ -41,10 +57,12 @@ cxprouter.post("/cxp", (req: Request, res: Response) => {
   
     //console.log(req.body); // get body
   
-    /*let data = {
+    /*
+    let data = {
       id : 1,
       message: "Creating cxp from router" 
-    }*/
+    }
+    */
 
     let totalitems = 0;
     let stopexecution = false;

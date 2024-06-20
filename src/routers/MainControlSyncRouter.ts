@@ -18,10 +18,25 @@ mscrouter.get("/mcs/:tablename", (req: Request, res: Response) => {
     })
 
 });
+
+mscrouter.patch("/mcs/:tablename/:lastid", (req: Request, res: Response) => {
+
+    save(req.params.tablename, +req.params.lastid)
+    .then((result)=>{
+        
+        if(result.status != "success") {
+            res.status(500).send(result);
+            return;
+        }
+        
+        res.send(result);
+    })
+
+});
   
 mscrouter.patch("/mcs/:tablename", (req: Request, res: Response) => {
 
-    save(req.params.tablename)
+    save(req.params.tablename, undefined)
     .then((result)=>{
         
         if(result.status != "success") {

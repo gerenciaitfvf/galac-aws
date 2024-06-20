@@ -14,6 +14,13 @@ import Comprobante from "./models/Comprobante";
 import { comprobanterouter } from "./routers/comprobante";
 import { mbankrouter } from "./routers/movimientobancario";
 import MovimientoBancario from "./models/MovimientoBancario";
+import DocumentoPagado from "./models/DocumentoPagado";
+import Pago from "./models/Pago";
+import Cambio from "./models/Cambio";
+import { pagorouter } from "./routers/pago";
+import { tasacambiorouter } from "./routers/tasacambio";
+import { docpagadorouter } from "./routers/docpagado";
+
 
 dotenv.config();
 
@@ -29,16 +36,26 @@ app.use(mscrouter);
 app.use(proveedorrouter);
 app.use(comprobanterouter);
 app.use(mbankrouter);
+app.use(pagorouter);
+app.use(tasacambiorouter);
+app.use(docpagadorouter);
 
 app.listen(port, async () => {
+
   try {
+
     await sequelize.authenticate();
     await cxp.sync();
     await mcs.sync();
     await Proveedor.sync();
     await Comprobante.sync();
     await MovimientoBancario.sync();
+    await DocumentoPagado.sync();
+    await Pago.sync(); 
+    await Cambio.sync(); 
+    
     console.log("Connection has been established successfully.");
+
   } catch (e) {
     console.error("Connection to database is not correct", e);
   }
