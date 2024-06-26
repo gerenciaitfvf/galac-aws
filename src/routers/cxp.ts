@@ -1,13 +1,26 @@
 import express, { Router, Request, Response } from "express";
 import { getCxP, save, touchCxP } from "../controllers/CxPController";
+import _ from "lodash"
 
 export const cxprouter : Router = express.Router();
 
 cxprouter.get("/cxp", (req: Request, res: Response) => {
 
     //console.log(req.query); // get parameters value
+   let offsetlimit = {
+        offset : 0,
+        limit : 10
+   }
+
+   if(!_.isUndefined(req.query.offset)) {
+        offsetlimit.offset = +req.query.offset;
+   }
    
-    getCxP({})
+   if(!_.isUndefined(req.query.limit)) {
+        offsetlimit.limit = +req.query.limit;
+   }
+
+    getCxP(offsetlimit)
     .then((result)=>{
         if(result.status != "success") {
             res.send(result);
@@ -25,24 +38,6 @@ cxprouter.get("/cxp/:rif/:numero", (req: Request, res: Response) => {
    
     getCxP({})
     .then((result)=>{
-        if(result.status != "success") {
-            res.send(result);
-            return;
-        }
-
-        res.send(result.data);
-    });
-    
-});
-
-cxprouter.get("/cxp/:offset", (req: Request, res: Response) => {
-
-    //console.log(req.query); // get parameters value
-
-    getCxP({
-        offset: +req.params.offset
-    }).then((result)=>{
-        
         if(result.status != "success") {
             res.send(result);
             return;

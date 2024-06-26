@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import Cambio from "../models/Cambio";
 
 export const saveTasaCambio = (objjson : any) => {
@@ -45,16 +46,27 @@ export const saveTasaCambio = (objjson : any) => {
     
 }
 
-export const getTasaByDateAndCode = (date: string, codigo: any) =>{
+export const getTasaByDateAndCode = (odate: any, codigo: any) =>{
 
+    let fechaVigencia = new Date();
+    fechaVigencia.setFullYear(odate.year);
+    fechaVigencia.setMonth(odate.month);
+    fechaVigencia.setDate(odate.date); 
+    fechaVigencia.setHours(0,0,0,0);  
+    
     return Cambio.findOne({
         where : {
-            ConsecutivoCompania : codigo.compania,
-            NumeroComprobante : codigo.numero
+            CodigoMoneda : codigo,
+            FechaDeVigencia : {
+                [Op.lt]: fechaVigencia
+            }
         },
+        order :[
+            ['FechaDeVigencia','DESC']
+        ],
         raw: true
     }).then((result)=>{
-        return {
+        return { 
             status : "success",
             statuscode : "200",
             data: result

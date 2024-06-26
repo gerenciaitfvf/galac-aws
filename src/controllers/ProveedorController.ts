@@ -1,4 +1,5 @@
 import Proveedor from "../models/Proveedor";
+import _ from "lodash"
 
 export const saveProveedor = (objjson : any) => {
     
@@ -57,6 +58,44 @@ export const getProveedorByCodigo = (codigo: any) =>{
             status : "success",
             statuscode : "200",
             data: result
+        }
+    }).catch((e)=>{
+        console.log(e);
+        return Promise.resolve({
+            status : "error",
+            statuscode : "PRO03",
+            data: e
+        });
+    })
+}
+
+export const getProveedor = (params : any) =>{
+
+    let limit = 10;
+    let offset = 0;
+
+    if(_.has(params, "limit")) {
+        limit = params["limit"];
+    }
+
+    if(_.has(params, "offset")) {
+        offset = params["offset"];
+    }
+
+    return Proveedor.findAndCountAll({
+        limit : limit,
+        offset: offset,
+        raw: true
+    }).then((result)=>{
+        return {
+            status : "success",
+            statuscode : "200",
+            data: {
+                totalitems : result.count,
+                items : result.rows,
+                offset: offset,
+                limit : limit 
+            }
         }
     }).catch((e)=>{
         console.log(e);

@@ -1,11 +1,40 @@
 import express, { Router, Request, Response } from "express";
-import { getProveedorByCodigo, saveProveedor } from "../controllers/ProveedorController";
+import { getProveedor, getProveedorByCodigo, saveProveedor } from "../controllers/ProveedorController";
+import _ from "lodash"
 
 export const proveedorrouter : Router = express.Router();
 
+proveedorrouter.get("/proveedor", (req: Request, res: Response) => {
+
+    // console.log(req.params); // get parameters value 
+    let offsetlimit = {
+        offset : 0,
+        limit : 10
+   }
+
+   if(!_.isUndefined(req.query.offset)) {
+        offsetlimit.offset = +req.query.offset;
+   }
+   
+   if(!_.isUndefined(req.query.limit)) {
+        offsetlimit.limit = +req.query.limit;
+   }
+
+    getProveedor(offsetlimit)
+    .then((result)=>{
+        
+        if(result.status != "success") {
+            res.send(result);
+            return;
+        }
+
+        res.send(result.data);
+    });
+});
+
 proveedorrouter.get("/proveedor/:codigo", (req: Request, res: Response) => {
 
-    console.log(req.params); // get parameters value
+    //console.log(req.params); // get parameters value
    
     getProveedorByCodigo(req.params.codigo)
     .then((result)=>{

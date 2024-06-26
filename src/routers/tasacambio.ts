@@ -1,17 +1,30 @@
 import express, { Router, Request, Response } from "express";
 import { getTasaByDateAndCode, saveTasaCambio } from "../controllers/CambioController";
-
+import _ from "lodash"
 
 export const tasacambiorouter : Router = express.Router();
 
-tasacambiorouter.get("/pago/:codigo", (req: Request, res: Response) => {
+tasacambiorouter.get("/tasacambio/:codigo", (req: Request, res: Response) => {
 
     let datenow = new Date();
 
+    let dateformated : any = {
+        year : datenow.getFullYear(),
+        month : datenow.getMonth(),
+        date: datenow.getDate()
+    } 
+
+    if(!_.isUndefined(req.query.date)) {
+        let sdate = _.split(req.query.date + "","-");
+        dateformated.year = sdate[0];
+        dateformated.month = +sdate[1]-1;
+        dateformated.date = sdate[2];
+    }
+
     getTasaByDateAndCode(
-        datenow.getFullYear() + "-" + datenow.getMonth() + "-" + datenow.getDay(),
+        dateformated,
         req.params.codigo
-    )
+    ) 
     .then((result)=>{
         
         if(result.status != "success") {
