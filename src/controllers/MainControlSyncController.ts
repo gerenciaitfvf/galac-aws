@@ -35,7 +35,9 @@ export const save = (tablename: string, lastid: number | undefined) => {
       } else {
         obj = mcsobj;
         obj.date_updated = tmpobj.date_updated;
-        obj.jinfo = tmpobj.jinfo;
+        if(obj.jinfo.lastid < tmpobj.jinfo.lastid) {
+          obj.jinfo = tmpobj.jinfo;
+        }
       }
 
       return obj.save();

@@ -23,7 +23,7 @@ export const saveTasaCambio = (objjson : any) => {
     let tmpobj = JSON.parse(stringObj);
     tmpobj.isVisible = 1;
 
-    const obj = Cambio.build(tmpobj);
+    let obj = Cambio.build(tmpobj);
     
 
     obj.save()
@@ -58,7 +58,7 @@ export const getTasaByDateAndCode = (odate: any, codigo: any) =>{
         where : {
             CodigoMoneda : codigo,
             FechaDeVigencia : {
-                [Op.lt]: fechaVigencia
+                [Op.lte]: fechaVigencia
             }
         },
         order :[

@@ -5,10 +5,10 @@ import { getPagoByCodigo, savePago } from "../controllers/PagoController";
 
 export const pagorouter : Router = express.Router();
 
-pagorouter.get("/pago/:compania/:numero", (req: Request, res: Response) => {
+pagorouter.get("/pago/:numero", (req: Request, res: Response) => {
 
     getPagoByCodigo({
-        compania : req.params.compania,
+        compania : 10,
         numero : req.params.numero
     })
     .then((result)=>{

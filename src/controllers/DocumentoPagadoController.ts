@@ -1,4 +1,3 @@
-import Cambio from "../models/Cambio";
 import DocumentoPagado from "../models/DocumentoPagado";
 
 export const saveDocPagado = (objjson : any) => {

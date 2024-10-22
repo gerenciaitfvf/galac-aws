@@ -20,6 +20,12 @@ import Cambio from "./models/Cambio";
 import { pagorouter } from "./routers/pago";
 import { tasacambiorouter } from "./routers/tasacambio";
 import { docpagadorouter } from "./routers/docpagado";
+import Anticipo from "./models/Anticipo";
+import AnticipoPagado from "./models/AnticipoPagado";
+import AnticipoCobrado from "./models/AnticipoCobrado";
+import CxC from "./models/CxC";
+import { anticiporouter } from "./routers/anticipo";
+import { cxcrouter } from "./routers/cxc";
 
 
 dotenv.config();
@@ -39,6 +45,8 @@ app.use(mbankrouter);
 app.use(pagorouter);
 app.use(tasacambiorouter);
 app.use(docpagadorouter);
+app.use(anticiporouter);
+app.use(cxcrouter);
 
 app.listen(port, async () => {
 
@@ -53,6 +61,10 @@ app.listen(port, async () => {
     await DocumentoPagado.sync();
     await Pago.sync(); 
     await Cambio.sync(); 
+    await Anticipo.sync(); 
+    await AnticipoPagado.sync(); 
+    await AnticipoCobrado.sync(); 
+    await CxC.sync(); 
     
     console.log("Connection has been established successfully.");
 

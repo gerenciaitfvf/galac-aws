@@ -1,15 +1,10 @@
 import express, { Router, Request, Response } from "express";
-import {
-  getCxP,
-  getCxPwithParams,
-  save,
-  touchCxP,
-} from "../controllers/CxPController";
 import _ from "lodash";
+import { getCxC, getCxCwithParams, saveCxC, touchCxC } from "../controllers/CxCController";
 
-export const cxprouter: Router = express.Router();
+export const cxcrouter: Router = express.Router();
 
-cxprouter.get("/cxp", (req: Request, res: Response) => {
+cxcrouter.get("/cxc", (req: Request, res: Response) => {
   //console.log(req.query); // get parameters value
   let offsetlimit = {
     offset: 0,
@@ -24,7 +19,7 @@ cxprouter.get("/cxp", (req: Request, res: Response) => {
     offsetlimit.limit = +req.query.limit;
   }
 
-  getCxP(offsetlimit).then((result) => {
+  getCxC(offsetlimit).then((result) => {
     if (result.status != "success") {
       res.send(result);
       return;
@@ -34,7 +29,7 @@ cxprouter.get("/cxp", (req: Request, res: Response) => {
   });
 });
 
-cxprouter.get("/cxp/:numero", (req: Request, res: Response) => {
+cxcrouter.get("/cxc/:numero", (req: Request, res: Response) => {
   //console.log(req.query); // get parameters value
 
   let params: any = {
@@ -52,7 +47,7 @@ cxprouter.get("/cxp/:numero", (req: Request, res: Response) => {
     params.limit = +req.query.limit;
   }
 
-  getCxPwithParams(params).then((result) => {
+  getCxCwithParams(params).then((result) => {
     if (result.status != "success") {
       res.send(result);
       return;
@@ -62,7 +57,7 @@ cxprouter.get("/cxp/:numero", (req: Request, res: Response) => {
   });
 });
 
-cxprouter.post("/cxp", (req: Request, res: Response) => {
+cxcrouter.post("/cxc", (req: Request, res: Response) => {
   //console.log(req.body); // get body
 
   /*
@@ -75,12 +70,13 @@ cxprouter.post("/cxp", (req: Request, res: Response) => {
   let totalitems = 0;
   let stopexecution = false;
   let errormessage = {};
-  req.body.map((cxp: any) => {
+  req.body.map(async (cxp: any) => {
     if (stopexecution) {
       return;
     }
 
-    let data = save(cxp);
+    let data = await saveCxC(cxp);
+    
     if (data?.status == "error") {
       stopexecution = true;
       errormessage = data;
@@ -101,10 +97,10 @@ cxprouter.post("/cxp", (req: Request, res: Response) => {
   );
 });
 
-cxprouter.patch("/cxp/:compania/:cxp", (req: Request, res: Response) => {
-  touchCxP({
+cxcrouter.patch("/cxc/:compania/:cxc", (req: Request, res: Response) => {
+  touchCxC({
     compania: req.params.compania,
-    cxp: req.params.cxp,
+    cxp: req.params.cxc,
   }).then((result) => {
     if (result.status != "success") {
       res.send(result);

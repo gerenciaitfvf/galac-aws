@@ -1,52 +1,59 @@
 import _ from "lodash";
-import { cxp } from "../models/CxP";
+import CxC  from "../models/CxC";
 
-export const save = (cxpjson : any) => {
+export const saveCxC = (cxcjson : any) => {
     
 
-    if(!cxpjson) {
+    if(!cxcjson) {
         return {
             status : "error",
-            statuscode : "CXP01",
-            data : "cxpjson is blank"
+            statuscode : "CVC01",
+            data : "CVCjson is blank"
         };
     }
     
 
-    let stringObj = JSON.stringify(cxpjson, (key, value) =>{
+    let stringObj = JSON.stringify(cxcjson, (key, value) =>{
         if(value != null && value == '') {
             return null;
         }
         return value
     });
+    
 
     let tmpobj = JSON.parse(stringObj);
     tmpobj.isVisible = 1;
 
-    const obj = cxp.build(tmpobj);
-    
+    let obj = CxC.build(tmpobj);
 
-    obj.save()
-    .then( (result) => {
+    obj
+    .save()
+    .then( (result : any) => {
         //console.log(result);
+        /*if(cxcjson.Numero == '013285') {
+            console.log(result);
+            console.log("caramba");
+            console.log(obj);
+            console.log("fin caramba");
+        }*/
         return {
             status : "success",
             statuscode : "200",
             data: result
         }
     })
-    .catch((e) => {
-        //console.log("error trying save object in database", e);
+    .catch((e : any) => {
+        
         return {
             status : "error",
-            statuscode : "CXP02",
+            statuscode : "CVC02",
             data: e
         }
     })
     
 }
 
-export const getCxP = (params : any) =>{
+export const getCxC = (params : any) =>{
 
     let limit = 10;
     let offset = 0;
@@ -59,7 +66,7 @@ export const getCxP = (params : any) =>{
         offset = params["offset"];
     }
 
-    return cxp.findAndCountAll(
+    return CxC.findAndCountAll(
         {
             where: {
                 isVisible : 1
@@ -68,7 +75,7 @@ export const getCxP = (params : any) =>{
             offset: offset,
             raw: true
         }
-    ).then((res)=>{
+    ).then((res : any)=>{
         //console.log("resulado", res);
         return {
             status : "success",
@@ -80,17 +87,17 @@ export const getCxP = (params : any) =>{
                 limit : limit 
             }
         }
-    }).catch((e)=>{
+    }).catch((e : any)=>{
         return Promise.resolve({
             status : "error",
-            statuscode : "CXP03",
+            statuscode : "CVC03",
             data: e
         });
     })
 
 }
 
-export const getCxPwithParams = (params : any) =>{
+export const getCxCwithParams = (params : any) =>{
 
     let limit = 10;
     let offset = 0;
@@ -112,14 +119,14 @@ export const getCxPwithParams = (params : any) =>{
         whereparams["Numero"] = params.numero;
     }
 
-    return cxp.findAndCountAll(
+    return CxC.findAndCountAll(
         {
             where: whereparams,
             limit : limit,
             offset: offset,
             raw: true
         }
-    ).then((res)=>{
+    ).then((res : any)=>{
         //console.log("resulado", res);
         return {
             status : "success",
@@ -131,30 +138,30 @@ export const getCxPwithParams = (params : any) =>{
                 limit : limit 
             }
         }
-    }).catch((e)=>{
+    }).catch((e : any)=>{
         return Promise.resolve({
             status : "error",
-            statuscode : "CXP03",
+            statuscode : "CVC03",
             data: e
         });
     })
 
 }
 
-export const touchCxP = (id : any) =>{
+export const touchCxC = (id : any) =>{
     
-    return cxp.findOne({
+    return CxC.findOne({
         where : {
             ConsecutivoCompania : id.compania,
-            ConsecutivoCxp : id.cxp
+            ConsecutivoCxc : id.cxc
         }
-    }).then((obj)=>{
+    }).then((obj : any)=>{
 
         if(!obj) {
             return Promise.reject(
                 {
                     status : "error",
-                    statuscode : "CXP04",
+                    statuscode : "CVC04",
                     data: "object not found"
                 }
             );
@@ -162,13 +169,13 @@ export const touchCxP = (id : any) =>{
 
         obj.isVisible = 0;
         return obj.save();
-    }).then((rsfinal)=>{
+    }).then((rsfinal : any)=>{
         return {
             status : "success",
             statuscode : "200",
             data: rsfinal
         }
-    }).catch((e)=>{
+    }).catch((e : any)=>{
         return e;
     })
 }
