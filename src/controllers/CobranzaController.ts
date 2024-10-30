@@ -58,7 +58,7 @@ export const getCobranzaByCodigo = (codigo: any) =>{
         },
         raw: true
     }).then((result : any) => {
-
+        
         if(result) {
             pagoReloaded = result;
             return MovimientoBancario.findOne({

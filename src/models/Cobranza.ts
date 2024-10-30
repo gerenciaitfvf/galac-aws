@@ -42,7 +42,7 @@ export default class Cobranza extends Model {
 	NumeroDeComprobanteISLR: number | undefined; // [int] NULL,
 	NombreOperador: string | undefined; // [varchar](10) NULL,
 	FechaUltimaModificacion: any | undefined; // [smalldatetime] NULL,
-	fldTimeStamp: number | undefined; // [timestamp] NOT NULL,
+	//fldTimeStamp: number | undefined; // [timestamp] NOT NULL,
 	ConsecutivoCobrador: number | undefined; // [int] NOT NULL,
   isVisible : number | undefined;
 }
@@ -53,7 +53,7 @@ Cobranza.init({
         primaryKey: true
       },
       Numero: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true
       },
       StatusCobranza: {
@@ -164,9 +164,9 @@ Cobranza.init({
       FechaUltimaModificacion: {
         type: DataTypes.DATEONLY
       },
-      fldTimeStamp: {
+      /*fldTimeStamp: {
         type: DataTypes.INTEGER
-      },
+      },*/
       ConsecutivoCobrador: {
         type: DataTypes.INTEGER
       },

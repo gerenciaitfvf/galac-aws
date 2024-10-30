@@ -27,6 +27,7 @@ import CxC from "./models/CxC";
 import { anticiporouter } from "./routers/anticipo";
 import { cxcrouter } from "./routers/cxc";
 import Cobranza from "./models/Cobranza";
+import { cobranzarouter } from "./routers/cobranza";
 
 
 dotenv.config();
@@ -48,6 +49,7 @@ app.use(tasacambiorouter);
 app.use(docpagadorouter);
 app.use(anticiporouter);
 app.use(cxcrouter);
+app.use(cobranzarouter);
 
 app.listen(port, async () => {
 
