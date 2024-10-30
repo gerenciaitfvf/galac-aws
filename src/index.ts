@@ -26,6 +26,7 @@ import AnticipoCobrado from "./models/AnticipoCobrado";
 import CxC from "./models/CxC";
 import { anticiporouter } from "./routers/anticipo";
 import { cxcrouter } from "./routers/cxc";
+import Cobranza from "./models/Cobranza";
 
 
 dotenv.config();
@@ -65,6 +66,7 @@ app.listen(port, async () => {
     await AnticipoPagado.sync(); 
     await AnticipoCobrado.sync(); 
     await CxC.sync(); 
+    await Cobranza.sync(); 
     
     console.log("Connection has been established successfully.");
 
